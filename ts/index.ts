@@ -1,5 +1,10 @@
+//Mensaje que se muestra por cada diferente operación
 let mensaje:string;
 
+//Obtiene datos HTML y los guarda en un arreglo
+//Solo obtiene datos númericos
+//Problema (Número del problema)
+//Cantidad (Cantidad de inputs que tiene la sección del problema)
 function obtenerDatos(problema:number,cantidad:number) {
     let datos:number[] = [];
     for(let i=1;i<=cantidad;i++) {
@@ -13,6 +18,7 @@ function obtenerDatos(problema:number,cantidad:number) {
     return datos;
 }
 
+//Función exclusiva para obtener textos de HTML
 function obtenerTexto(problema:number) {
     let id:string = "input-p"+problema+"-1";
     let texto = document.getElementById(id);
@@ -22,6 +28,10 @@ function obtenerTexto(problema:number) {
     }
 }
 
+//Muestra el resultado de cada operación
+//problema: Número del problema
+//operación: Resultado final de la operación
+//msj: Indica cual es el tipo de operación realizada
 function mostrarResultado(problema:number,operacion:string,msj:string) {
     let id:string = "problema-"+problema+"-resultado";
     const resultado = document.getElementById(id)
@@ -34,6 +44,7 @@ function mostrarResultado(problema:number,operacion:string,msj:string) {
     }
 }
 
+//Calcular Promedio
 function problemaUno() {
     let datos:number[] = obtenerDatos(1,3);
     let promedio:number = (datos[0]+datos[1]+datos[2])/3;
@@ -41,6 +52,7 @@ function problemaUno() {
     mostrarResultado(1,String(promedio),mensaje);
 }
 
+//Calcular el área de un triángulo
 function problemaDos() {
     let datos:number[] = obtenerDatos(2,2);
     let area:number = (datos[0]*datos[1])/2;
@@ -48,6 +60,7 @@ function problemaDos() {
     mostrarResultado(2,String(area),mensaje);
 }
 
+//Número par o impar
 function problemaTres() {
     let datos:number[] = obtenerDatos(3,1);
     let numero:number = datos[0];
@@ -61,6 +74,7 @@ function problemaTres() {
     mostrarResultado(3,rest,mensaje)
 }
 
+//Número mayor y menor
 function problemaCuatro() {
     let datos:number[] = obtenerDatos(4,3);
     for (let i=0;i<2;i++) {
@@ -86,6 +100,7 @@ function problemaCinco() {
     mostrarResultado(5,String(potencia),mensaje);
 }
 
+//Potencia
 function problemaSeis() {
     let texto:string = String(obtenerTexto(6));
     let txtInv:string = "";
@@ -93,11 +108,11 @@ function problemaSeis() {
         
         txtInv += texto.charAt(i-1);
     }
-    console.log(txtInv)
     mensaje = "texto invertido"
     mostrarResultado(6,txtInv,mensaje)
 }
 
+//Calcular factorial
 function factorial(n: number): number {
     if (n === 0) {
       return 1;
@@ -106,6 +121,7 @@ function factorial(n: number): number {
     }
 }
 
+//Obtiene y muestra los datos de factorial
 function problemaSiete() {
     let datos:number[] = obtenerDatos(7,1);
     let resp:number = factorial(datos[0]);
@@ -113,6 +129,7 @@ function problemaSiete() {
     mostrarResultado(7,String(resp),mensaje);
 }
 
+//Número perfecto
 function problemaOcho() {
     let numero:number = obtenerDatos(8,1)[0];
     let divisores:number[] = [];
@@ -133,4 +150,43 @@ function problemaOcho() {
         resp = "Imperfecto"
     }
     mostrarResultado(8,resp,mensaje);
+}
+
+//Determina si un número es primo
+function primos(n:number) {
+    if (n<2){
+        return "No primo"
+    } else if (n==2) {
+        return "Primo"
+    } else {
+        for (let i=2;i<n;i++) {
+            if (n%i==0) {
+                return "No primo"
+            } 
+        } return "Primo"
+    }
+}
+
+//Obtiene y muestra los datos para la función primos()
+function problemaNueve() {
+    let numero:number = obtenerDatos(9,1)[0];
+    let resp:string = String(primos(numero))
+    mensaje = "número"
+    mostrarResultado(9,resp,mensaje);
+}
+
+//Calcula las vocales existentes del texto
+function problemaDiez() {
+    let texto:string = String(obtenerTexto(10));
+    let vocales:number = 0;
+    let v:string = "";
+    for(let i=0;i<texto.length;i++) {
+        v = String(texto.charAt(i));
+        if (v=="a"||v=="e"||v=="i"||v=="o"||v=="u") {
+            vocales++;
+        }
+    }
+    mensaje = "número de vocales en el texto"
+    mostrarResultado(10,String(vocales),mensaje)
+    console.log(10);
 }
