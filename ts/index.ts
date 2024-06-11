@@ -44,6 +44,54 @@ function mostrarResultado(problema:number,operacion:string,msj:string) {
     }
 }
 
+//Clase para casos especiales utilizando POO
+class ResultadosPOO {
+    //Atributos
+    private resultado: string = "";
+    //Métodos
+    public parImpar(numero:number){
+        if(numero){
+            if (numero%2==0) {
+                this.resultado = "Par";
+            } else {
+                this.resultado = "Impar";
+            }
+            return this.resultado
+        } else {
+            alert("Llena el campo")
+            return ""
+        }
+    }
+    public noPerfecto(numero:number){
+        if(numero){
+            let divisores:number[] = [];
+            let suma:number = 0;
+            mensaje = "número"
+            for (let i=numero-1;i>0;i--) {
+                if (numero%i==0) {
+                    divisores.push(i);
+                }
+            }
+            divisores.forEach(function(divisor) {
+                suma += divisor;
+            });
+            if (suma===numero) {
+                this.resultado = "Perfecto";
+            } else {
+                this.resultado = "Imperfecto";
+            }
+            return this.resultado;
+        } else {
+            alert("Llena el campo")
+            return ""
+        }
+    }
+}
+
+const resultadosPOO = new ResultadosPOO();
+
+//Operaciones
+
 //Calcular Promedio
 function problemaUno() {
     let datos:number[] = obtenerDatos(1,3);
@@ -62,16 +110,11 @@ function problemaDos() {
 
 //Número par o impar
 function problemaTres() {
-    let datos:number[] = obtenerDatos(3,1);
-    let numero:number = datos[0];
-    let rest:string;
-    if (numero%2==0) {
-        rest = "Par";
-    } else {
-        rest = "Impar";
-    }
-    mensaje = "número";
-    mostrarResultado(3,rest,mensaje)
+    let dato:number = parseInt((document.getElementById("input-p3-1") as HTMLInputElement).value);
+    const pRespuesta3 = document.getElementById("problema-3-resultado");
+    if(pRespuesta3){
+        pRespuesta3.innerHTML = String(resultadosPOO.parImpar(dato));
+    } 
 }
 
 //Número mayor y menor
@@ -93,6 +136,7 @@ function problemaCuatro() {
     mostrarResultado(4,resp,mensaje);
 }
 
+//Potencia
 function problemaCinco() {
     let datos:number[] = obtenerDatos(5,2);
     let potencia:number = datos[0]**datos[1];
@@ -100,7 +144,7 @@ function problemaCinco() {
     mostrarResultado(5,String(potencia),mensaje);
 }
 
-//Potencia
+//Palabra Inversa
 function problemaSeis() {
     let texto:string = String(obtenerTexto(6));
     let txtInv:string = "";
@@ -131,25 +175,11 @@ function problemaSiete() {
 
 //Número perfecto
 function problemaOcho() {
-    let numero:number = obtenerDatos(8,1)[0];
-    let divisores:number[] = [];
-    let suma:number = 0;
-    let resp:string = ""
-    mensaje = "número"
-    for (let i=numero-1;i>0;i--) {
-        if (numero%i==0) {
-            divisores.push(i);
-        }
+    let dato:number = parseInt((document.getElementById("input-p8-1") as HTMLInputElement).value);
+    const pRespuesta8 = document.getElementById("problema-8-resultado");
+    if(pRespuesta8){
+        pRespuesta8.innerHTML = String(resultadosPOO.noPerfecto(dato));
     }
-    divisores.forEach(function(divisor) {
-        suma += divisor;
-    });
-    if (suma===numero) {
-        resp = "Perfecto"
-    } else {
-        resp = "Imperfecto"
-    }
-    mostrarResultado(8,resp,mensaje);
 }
 
 //Determina si un número es primo

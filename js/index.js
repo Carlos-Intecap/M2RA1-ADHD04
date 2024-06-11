@@ -42,6 +42,58 @@ function mostrarResultado(problema, operacion, msj) {
             ];
     }
 }
+//Clase para casos especiales utilizando POO
+var ResultadosPOO = /** @class */ (function () {
+    function ResultadosPOO() {
+        //Atributos
+        this.resultado = "";
+    }
+    //Métodos
+    ResultadosPOO.prototype.parImpar = function (numero) {
+        if (numero) {
+            if (numero % 2 == 0) {
+                this.resultado = "Par";
+            }
+            else {
+                this.resultado = "Impar";
+            }
+            return this.resultado;
+        }
+        else {
+            alert("Llena el campo");
+            return "";
+        }
+    };
+    ResultadosPOO.prototype.noPerfecto = function (numero) {
+        if (numero) {
+            var divisores = [];
+            var suma_1 = 0;
+            mensaje = "número";
+            for (var i = numero - 1; i > 0; i--) {
+                if (numero % i == 0) {
+                    divisores.push(i);
+                }
+            }
+            divisores.forEach(function (divisor) {
+                suma_1 += divisor;
+            });
+            if (suma_1 === numero) {
+                this.resultado = "Perfecto";
+            }
+            else {
+                this.resultado = "Imperfecto";
+            }
+            return this.resultado;
+        }
+        else {
+            alert("Llena el campo");
+            return "";
+        }
+    };
+    return ResultadosPOO;
+}());
+var resultadosPOO = new ResultadosPOO();
+//Operaciones
 //Calcular Promedio
 function problemaUno() {
     var datos = obtenerDatos(1, 3);
@@ -58,17 +110,11 @@ function problemaDos() {
 }
 //Número par o impar
 function problemaTres() {
-    var datos = obtenerDatos(3, 1);
-    var numero = datos[0];
-    var rest;
-    if (numero % 2 == 0) {
-        rest = "Par";
+    var dato = parseInt(document.getElementById("input-p3-1").value);
+    var pRespuesta3 = document.getElementById("problema-3-resultado");
+    if (pRespuesta3) {
+        pRespuesta3.innerHTML = String(resultadosPOO.parImpar(dato));
     }
-    else {
-        rest = "Impar";
-    }
-    mensaje = "número";
-    mostrarResultado(3, rest, mensaje);
 }
 //Número mayor y menor
 function problemaCuatro() {
@@ -88,13 +134,14 @@ function problemaCuatro() {
     var resp = mayor + " y el número menor es: " + menor;
     mostrarResultado(4, resp, mensaje);
 }
+//Potencia
 function problemaCinco() {
     var datos = obtenerDatos(5, 2);
     var potencia = Math.pow(datos[0], datos[1]);
     mensaje = "número potenciado";
     mostrarResultado(5, String(potencia), mensaje);
 }
-//Potencia
+//Palabra Inversa
 function problemaSeis() {
     var texto = String(obtenerTexto(6));
     var txtInv = "";
@@ -122,26 +169,11 @@ function problemaSiete() {
 }
 //Número perfecto
 function problemaOcho() {
-    var numero = obtenerDatos(8, 1)[0];
-    var divisores = [];
-    var suma = 0;
-    var resp = "";
-    mensaje = "número";
-    for (var i = numero - 1; i > 0; i--) {
-        if (numero % i == 0) {
-            divisores.push(i);
-        }
+    var dato = parseInt(document.getElementById("input-p8-1").value);
+    var pRespuesta8 = document.getElementById("problema-8-resultado");
+    if (pRespuesta8) {
+        pRespuesta8.innerHTML = String(resultadosPOO.noPerfecto(dato));
     }
-    divisores.forEach(function (divisor) {
-        suma += divisor;
-    });
-    if (suma === numero) {
-        resp = "Perfecto";
-    }
-    else {
-        resp = "Imperfecto";
-    }
-    mostrarResultado(8, resp, mensaje);
 }
 //Determina si un número es primo
 function primos(n) {
