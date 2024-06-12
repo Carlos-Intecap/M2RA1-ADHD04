@@ -49,6 +49,7 @@ var ResultadosPOO = /** @class */ (function () {
         this.resultado = "";
     }
     //Métodos
+    //Determinar si un número es par o impar
     ResultadosPOO.prototype.parImpar = function (numero) {
         if (numero) {
             if (numero % 2 == 0) {
@@ -64,6 +65,29 @@ var ResultadosPOO = /** @class */ (function () {
             return "";
         }
     };
+    //Encontrar el número mayor y el número menor
+    ResultadosPOO.prototype.mayorMenor = function (datos) {
+        if (datos[0] && datos[1] && datos[2]) {
+            for (var i = 0; i < 2; i++) {
+                for (var j = 0; j < 2; j++) {
+                    if (datos[j] < datos[j + 1]) {
+                        var aux = datos[j];
+                        datos[j] = datos[j + 1];
+                        datos[j + 1] = aux;
+                    }
+                }
+            }
+            var mayor = datos[0];
+            var menor = datos[2];
+            this.resultado = "El número mayor es: " + mayor + " y el número menor es: " + menor;
+            return this.resultado;
+        }
+        else {
+            alert("Llena todos los campos");
+            return "";
+        }
+    };
+    //Determina si un número es perfecto
     ResultadosPOO.prototype.noPerfecto = function (numero) {
         if (numero) {
             var divisores = [];
@@ -84,6 +108,29 @@ var ResultadosPOO = /** @class */ (function () {
                 this.resultado = "Imperfecto";
             }
             return this.resultado;
+        }
+        else {
+            alert("Llena el campo");
+            return "";
+        }
+    };
+    //Determina si un número es primo
+    ResultadosPOO.prototype.primos = function (n) {
+        if (n) {
+            if (n < 2) {
+                return "No primo";
+            }
+            else if (n == 2) {
+                return "Primo";
+            }
+            else {
+                for (var i = 2; i < n; i++) {
+                    if (n % i == 0) {
+                        return "No primo";
+                    }
+                }
+                return "Primo";
+            }
         }
         else {
             alert("Llena el campo");
@@ -118,21 +165,11 @@ function problemaTres() {
 }
 //Número mayor y menor
 function problemaCuatro() {
-    var datos = obtenerDatos(4, 3);
-    for (var i = 0; i < 2; i++) {
-        for (var j = 0; j < 2; j++) {
-            if (datos[j] < datos[j + 1]) {
-                var aux = datos[j];
-                datos[j] = datos[j + 1];
-                datos[j + 1] = aux;
-            }
-        }
+    var numeros = obtenerDatos(4, 3);
+    var pRespuesta4 = document.getElementById("problema-4-resultado");
+    if (pRespuesta4) {
+        pRespuesta4.innerHTML = String(resultadosPOO.mayorMenor(numeros));
     }
-    var mayor = datos[0];
-    var menor = datos[2];
-    mensaje = "número mayor";
-    var resp = mayor + " y el número menor es: " + menor;
-    mostrarResultado(4, resp, mensaje);
 }
 //Potencia
 function problemaCinco() {
@@ -175,29 +212,13 @@ function problemaOcho() {
         pRespuesta8.innerHTML = String(resultadosPOO.noPerfecto(dato));
     }
 }
-//Determina si un número es primo
-function primos(n) {
-    if (n < 2) {
-        return "No primo";
-    }
-    else if (n == 2) {
-        return "Primo";
-    }
-    else {
-        for (var i = 2; i < n; i++) {
-            if (n % i == 0) {
-                return "No primo";
-            }
-        }
-        return "Primo";
-    }
-}
-//Obtiene y muestra los datos para la función primos()
+//Número primo
 function problemaNueve() {
-    var numero = obtenerDatos(9, 1)[0];
-    var resp = String(primos(numero));
-    mensaje = "número";
-    mostrarResultado(9, resp, mensaje);
+    var numero = parseInt(document.getElementById("input-p9-1").value);
+    var pRespuesta9 = document.getElementById("problema-9-resultado");
+    if (pRespuesta9) {
+        pRespuesta9.innerHTML = String(resultadosPOO.primos(numero));
+    }
 }
 //Calcula las vocales existentes del texto
 function problemaDiez() {

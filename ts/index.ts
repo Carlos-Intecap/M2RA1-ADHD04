@@ -49,6 +49,7 @@ class ResultadosPOO {
     //Atributos
     private resultado: string = "";
     //Métodos
+    //Determinar si un número es par o impar
     public parImpar(numero:number){
         if(numero){
             if (numero%2==0) {
@@ -62,6 +63,29 @@ class ResultadosPOO {
             return ""
         }
     }
+
+    //Encontrar el número mayor y el número menor
+    public mayorMenor(datos:number[]){
+        if(datos[0]&&datos[1]&&datos[2]){
+            for (let i=0;i<2;i++) {
+                for (let j=0;j<2;j++) {
+                    if (datos[j]<datos[j+1]) {
+                        let aux:number = datos[j];
+                        datos[j]=datos[j+1]
+                        datos[j+1]=aux
+                    }
+                }
+            }
+            let mayor:number = datos[0];
+            let menor:number = datos[2];
+            this.resultado = "El número mayor es: "+mayor+" y el número menor es: "+menor;
+            return this.resultado;
+        } else {
+            alert("Llena todos los campos")
+            return ""
+        }
+    }
+    //Determina si un número es perfecto
     public noPerfecto(numero:number){
         if(numero){
             let divisores:number[] = [];
@@ -81,6 +105,25 @@ class ResultadosPOO {
                 this.resultado = "Imperfecto";
             }
             return this.resultado;
+        } else {
+            alert("Llena el campo")
+            return ""
+        }
+    }
+    //Determina si un número es primo
+    public primos(n:number) {
+        if(n){
+            if (n<2){
+                return "No primo"
+            } else if (n==2) {
+                return "Primo"
+            } else {
+                for (let i=2;i<n;i++) {
+                    if (n%i==0) {
+                        return "No primo"
+                    } 
+                } return "Primo"
+            }
         } else {
             alert("Llena el campo")
             return ""
@@ -119,21 +162,11 @@ function problemaTres() {
 
 //Número mayor y menor
 function problemaCuatro() {
-    let datos:number[] = obtenerDatos(4,3);
-    for (let i=0;i<2;i++) {
-        for (let j=0;j<2;j++) {
-            if (datos[j]<datos[j+1]) {
-                let aux:number = datos[j];
-                datos[j]=datos[j+1]
-                datos[j+1]=aux
-            }
-        }
-    }
-    let mayor:number = datos[0];
-    let menor:number = datos[2];
-    mensaje = "número mayor";
-    let resp:string = mayor+" y el número menor es: "+menor
-    mostrarResultado(4,resp,mensaje);
+    let numeros:number[] = obtenerDatos(4,3);
+    const pRespuesta4 = document.getElementById("problema-4-resultado");
+    if(pRespuesta4){
+        pRespuesta4.innerHTML = String(resultadosPOO.mayorMenor(numeros));
+    } 
 }
 
 //Potencia
@@ -182,27 +215,13 @@ function problemaOcho() {
     }
 }
 
-//Determina si un número es primo
-function primos(n:number) {
-    if (n<2){
-        return "No primo"
-    } else if (n==2) {
-        return "Primo"
-    } else {
-        for (let i=2;i<n;i++) {
-            if (n%i==0) {
-                return "No primo"
-            } 
-        } return "Primo"
-    }
-}
-
-//Obtiene y muestra los datos para la función primos()
+//Número primo
 function problemaNueve() {
-    let numero:number = obtenerDatos(9,1)[0];
-    let resp:string = String(primos(numero))
-    mensaje = "número"
-    mostrarResultado(9,resp,mensaje);
+    let numero:number = parseInt((document.getElementById("input-p9-1") as HTMLInputElement).value);
+    const pRespuesta9 = document.getElementById("problema-9-resultado");
+    if(pRespuesta9){
+        pRespuesta9.innerHTML = String(resultadosPOO.primos(numero));
+    }
 }
 
 //Calcula las vocales existentes del texto
